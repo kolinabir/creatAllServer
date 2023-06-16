@@ -73,12 +73,19 @@ app.post("/selectedClass", async (req, res) => {
   const result = await StudentSelectedClassCollection.insertOne(user);
   res.send(result);
 });
-app.get('/selectedClass/:email', async(req,res)=>{
+app.get("/selectedClass/:email", async (req, res) => {
   console.log(req.params.email);
-  const result = await StudentSelectedClassCollection.find({userMail: req.params.email}).toArray();
+  const result = await StudentSelectedClassCollection.find({
+    userMail: req.params.email,
+  }).toArray();
   res.send(result);
 });
-
+app.delete("/selectedClass/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { name: id };
+  const result = await StudentSelectedClassCollection.deleteOne(query);
+  res.send(result);
+});
 app.get("/", (req, res) => {
   res.send("simple card is running");
 });
